@@ -1,0 +1,22 @@
+# ERC677 Token standard.
+
+**Overview:**
+
+ERC677 aims to provide useful functionality without colliding with the ERC20 standard. It extends the ERC20 token. For example, Chainlink LINK token uses ERC677
+
+- **Key Feature**: The primary feature of ERC-677 is the `transferAndCall` function. This function allows tokens to be transferred to a smart contract while simultaneously triggering a specified function call on that contract in a single transaction. This makes interactions more efficient, as it reduces the need for multiple transactions.
+- **Function Signature**:
+    
+    ```solidity
+    function transferAndCall(address to, uint256 value, bytes calldata data) external returns (bool);
+    ```
+    
+    - `to`: The address of the contract to receive the tokens.
+    - `value`: The amount of tokens to transfer.
+    - `data`: Additional data to be passed to the receiving contract.
+- **Efficiency**: It combines transferring and function calling in one step, reducing gas costs.
+
+**Compatibility with Chainlink Services:**
+
+- **Chainlink VRF**: When using Chainlink's VRF, a smart contract that requests randomness from the Chainlink VRF Coordinator can make use of `transferAndCall`. This means the contract sends LINK tokens to pay for the VRF service while simultaneously notifying the VRF Coordinator of the request in a single transaction. This greatly simplifies and streamlines the process of obtaining randomness.
+- **Chainlink Price Feeds**: When funding a Chainlink oracle to fetch off-chain data (e.g., price feeds), ERC677 makes the process more efficient. The `transferAndCall` function allows oracles to be paid in LINK tokens and notified of the funding in one step, ensuring faster and more efficient updates.

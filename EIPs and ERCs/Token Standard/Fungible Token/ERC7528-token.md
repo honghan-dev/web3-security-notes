@@ -1,0 +1,66 @@
+# ERC7528 ETH Native Asset Address Convention
+
+**Overview:**
+
+ERC-7528 proposes using `0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE` (checksummed) as the standard address to represent ETH when it's used in contexts typically expecting ERC-20 tokens.
+
+## Core Specification
+
+### Standard Address
+
+```solidity
+0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee// Non-checksummed
+0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE// EIP-155 checksummed
+```
+
+### Requirements
+
+1. **Must Use**: When representing ETH in ERC-20 contexts
+2. **Must Not Use**: For wrapped versions of ETH (e.g., WETH)
+3. **Checksum**: Should use EIP-155 checksummed version where appropriate
+
+## Use Cases
+
+### 1. Event Emissions
+
+- Single event format for both ETH and ERC-20 transfers
+- Reduced data fragmentation
+- Simplified off-chain infrastructure
+
+### 2. ERC-4626 Integration
+
+- LSTs (Liquid Staking Tokens) using ETH as asset
+- Standardized vault implementations
+- Unified tooling support
+
+### 3. Protocol Integration
+
+- Consistent token handling interface
+- Simplified protocol development
+- Better interoperability
+
+## Design Rationale
+
+### Why This Address?
+
+1. **Distinctive Pattern**: Easy visual recognition
+2. **No Collisions**: Avoids precompile address conflicts
+3. **Existing Usage**: Most widely adopted format
+4. **Universal**: Applies to all EVM chains
+
+### Alternatives Considered
+
+- `0x0`: Potential precompile collision
+- `0x1`: Potential precompile collision
+- `0xe`: Less distinctive, potential conflicts
+
+## Security Considerations
+
+1. **Reentrancy Risks**
+    - Native ETH transfers can be reentrant
+    - Must follow checks-effects-interactions pattern
+    - Different security model from ERC-20s
+2. **Implementation Guidelines**
+    - Careful handling of ETH transfers
+    - Proper validation checks
+    - Gas considerations
