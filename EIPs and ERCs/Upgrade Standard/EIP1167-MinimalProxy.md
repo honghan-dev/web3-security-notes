@@ -2,7 +2,7 @@
 
 ## Overview
 
-EIP-1167 standardizes the implementation of minimal proxy contracts, also known as "clones," which delegate all calls to a pre-deployed implementation contract. This approach offers a gas-efficient mechanism to deploy multiple instances of a contract with identical functionality.
+EIP-1167 standardizes the implementation of minimal proxy contracts, also known as `clones`, which delegate all calls to a pre-deployed implementation contract. This approach offers a gas-efficient mechanism to deploy multiple instances of a contract with identical functionality.
 
 ## Motivation
 
@@ -15,13 +15,18 @@ Deploying multiple identical smart contracts can be expensive due to gas costs. 
 The minimal proxy contract has a fixed bytecode structure. The core functionality is encoded as:
 
 ```solidity
-0x363d3d373d3d3d363d73<address>5af43d82803e903d91602b57fd5bf3
+0x363d3d373d3d3d363d73 <address> 5af43d82803e903d91602b57fd5bf3
 ```
 
-- Bytes 10-29: Contain the `20-byte address` of the implementation contract.
+- Bytes 10-29: Contain the `20-byte address` of the implementation contract(added call into proxy will be delegated to `implementation contract`).
 - Functionality: Delegates all calls to the implementation contract, forwarding all gas and returning any data or errors from the delegate call.
 
-Simplicity and Gas Efficiency
+```solidity
+Proxy Bytecode Structure:
+[EIP-1167 Proxy Code (minimal proxy logic)][Immutable Args]
+```
+
+### Simplicity and Gas Efficiency
 
 Low Deployment Cost: By deploying minimal bytecode, the gas cost is significantly reduced compared to deploying full contract code.
 
@@ -41,7 +46,7 @@ The standardized bytecode performs the following operations:
 
 Disassembly of the minimal proxy bytecode:
 
-**Opcode**
+1. **Opcode**
 
 ```solidity
 36 calldatasize
