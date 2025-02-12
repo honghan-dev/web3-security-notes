@@ -9,5 +9,5 @@ cast sig "transfer(address,uint256)"
 Inspecting storage of local repo
 
 ```jsx
-forge inspect <YourContractName> storage-layout --pretty
+forge inspect <YourContractName:ContractName> storage-layout --pretty
 ```
