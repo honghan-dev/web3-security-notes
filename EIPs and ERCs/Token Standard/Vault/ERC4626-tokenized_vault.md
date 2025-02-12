@@ -2,7 +2,7 @@
 
 ## Overview
 
-ERC4626 is a standard interface for tokenized yield-bearing vaults. It extends ERC20 to standardize the technical implementation of yield-bearing tokens, such as lending markets, aggregators, and intrinsically interest-bearing tokens.
+`ERC4626` is a standard interface for tokenized yield-bearing vaults. It extends `ERC20` to standardize the technical implementation of yield-bearing tokens, such as lending markets, aggregators, and intrinsically interest-bearing tokens.
 
 ## Key Features
 
