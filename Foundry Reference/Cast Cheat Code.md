@@ -12,7 +12,7 @@ Inspecting storage of local repo
 forge inspect <YourContractName:ContractName> storage-layout --pretty
 ```
 
-Generate random funded wallet public and private key
+Generate wallet public and private key
 
 ```shell
 cast wallet new
