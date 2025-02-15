@@ -11,3 +11,9 @@ Inspecting storage of local repo
 ```jsx
 forge inspect <YourContractName:ContractName> storage-layout --pretty
 ```
+
+Generate random funded wallet public and private key
+
+```shell
+cast wallet new
+```
