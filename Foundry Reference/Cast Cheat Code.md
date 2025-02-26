@@ -17,3 +17,9 @@ Generate wallet public and private key
 ```shell
 cast wallet new
 ```
+
+Generate new wallet mnemonic
+
+```shell
+cast wallet new-mnemonic --words 24
+```
