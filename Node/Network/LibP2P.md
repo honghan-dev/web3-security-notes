@@ -14,7 +14,7 @@ Here are the key components/modules you’ll encounter in the Rust crate:
 | Component               | Description                                                                                               |
 | ----------------------- | --------------------------------------------------------------------------------------------------------- |
 | **Transport**           | Handles how data is physically transmitted (TCP, WebSockets, QUIC, etc.)                                  |
-| **Swarm**               | the network engine that connects your node to others. It manages all peer-to-peer connections, handles I/O, and routes protocol messages.       |
+| **Swarm**               | Local network engine that connects your node to others. It manages all peer-to-peer connections, handles I/O, and routes protocol messages.       |
 | **Behaviour**           | Describes the logic of your node (e.g. how to respond to messages, send requests, etc.). You define this. |
 | **Identity**            | Handles cryptographic identities (usually using ed25519 keys) for secure peer IDs.                        |
 | **PeerId**              | A unique identifier for each node, derived from its public key.                                           |
