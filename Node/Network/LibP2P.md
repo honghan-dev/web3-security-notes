@@ -63,3 +63,15 @@ libp2p (P2P layer)
 │
 └── Blockchain Logic (consensus, execution, storage)
 ```
+
+#### Address Format Explanation
+
+```rust
+/ip4/10.10.0.21/udp/49590/quic-v1
+│    │          │   │     │
+│    │          │   │     └─ Protocol: QUIC version 1
+│    │          │   └─ Port: 49590  
+│    │          └─ Transport: UDP
+│    └─ IP Address: 10.10.0.21 (Docker container IP)
+└─ Protocol: IPv4
+```

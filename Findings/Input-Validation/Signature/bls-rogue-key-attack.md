@@ -18,3 +18,5 @@ then the overall aggregated key becomes just PK_target.
 🛡️ Mitigation: Always enforce Proof of Possession for BLS public keys during registration. This ensures validators actually hold the corresponding secret keys.
 
 💥 Without it, even the most elegant signature scheme is vulnerable to subtle but catastrophic compromise.
+
+More reading: [Rogue Key Attack](https://xn--2-umb.com/22/bls-signatures/#rogue-key-attack)
