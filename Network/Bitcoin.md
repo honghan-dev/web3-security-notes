@@ -49,6 +49,26 @@ Each transaction is a mini-program that transfers BTC. It contains:
 
 One unique type of transaction output uses `OP_RETURN`.
 
+**OP_RETURN formatting**
+
+```rust
+<OP_RETURN (0x6a)> <PUSHDATA opcode> <data>
+```
+
+**Example 1:**
+
+```text
+OP_RETURN <36 bytes>
+6a24aa21a9ed + witness_root + witness_nonce
+└─┘└─┘└──────┘
+│  │     │
+│  │     └─ Magic number Witness commitment prefix  
+│  └─ Push 36 bytes
+└─ OP_RETURN (unspendable output)
+
+`6a 24 aa21a9ed <32-byte SHA256 hash>`
+```
+
 #### ✳️ What’s OP_RETURN?
 
 - A special script opcode used in an output’s `scriptPubKey`
@@ -78,6 +98,10 @@ The first transaction in every block is the coinbase transaction, which:
 - Pays the miner for securing the network
 
 - 💰 This is how new Bitcoin enters circulation.
+
+### SegWit(separate witness)
+
+SegWit introduced a separate witness merkle tree structure alongside the traditional merkle tree for txids. The root of the witness merkle tree is committed in the coinbase transaction’s `OP_RETURN` output, allowing full nodes to verify all witness data is correct.
 
 ### 🧠 TL;DR — Anatomy of a Bitcoin Block
 
