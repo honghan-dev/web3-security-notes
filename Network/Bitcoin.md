@@ -87,21 +87,132 @@ Output = {
 
 That hex string? It says `Hello World` — forever etched into the blockchain.
 
-### 🔁 The Coinbase Transaction — Paying the Miners
+Sure! Here's your explanation converted into well-structured Markdown format for easier reading and sharing:
 
-The first transaction in every block is the coinbase transaction, which:
+---
 
-- Has no inputs
+# 🔁 The Coinbase Transaction — Paying the Miners
 
-- Mints new BTC (the block reward + fees)
+The first transaction in every Bitcoin block is special — it’s the **coinbase transaction**.
 
-- Pays the miner for securing the network
+---
 
-- 💰 This is how new Bitcoin enters circulation.
+## 💰 What makes it different?
 
-### SegWit(separate witness)
+- It has **no inputs** (it doesn’t spend any existing UTXO).
+- It **mints new BTC** (the block subsidy + total transaction fees).
+- It **pays the block reward to the miner**.
+- It can include **arbitrary data** (e.g., a message or SegWit commitment).
 
-SegWit introduced a separate witness merkle tree structure alongside the traditional merkle tree for txids. The root of the witness merkle tree is committed in the coinbase transaction’s `OP_RETURN` output, allowing full nodes to verify all witness data is correct.
+### 🧱 Example Structure (Rust-style pseudocode)
+
+```rust
+CoinbaseTx {
+    inputs: [
+        {
+            previous_output: null,
+            scriptSig: arbitrary data (e.g., block height, miner tag),
+            sequence: 0xffffffff
+        }
+    ],
+    outputs: [
+        {
+            value: <block reward + tx fees>,
+            scriptPubKey: <payout address or script>
+        },
+        ...
+        optional OP_RETURN (e.g., witness commitment)
+    ]
+}
+```
+
+---
+
+## 🧠 Can a coinbase tx have multiple outputs?
+
+Yes!
+While there is usually **one main output** that pays the miner, **additional outputs** can:
+
+- Include **metadata**
+- Split rewards among **pools**
+- Contain **OP\_RETURN** data
+
+---
+
+# 🧨 OP\_RETURN — Hiding Messages in the Blockchain
+
+One unique type of transaction output uses `OP_RETURN`.
+
+### 🧾 Format
+
+```text
+<OP_RETURN (0x6a)> <PUSHDATA opcode> <data>
+```
+
+#### Example 1: SegWit Commitment (36 bytes)
+
+```text
+OP_RETURN <36 bytes>
+6a24aa21a9ed + witness_root + witness_nonce
+```
+
+Used for embedding:
+
+- Messages
+- Hashes
+- SegWit commitment
+
+❗ This output is **provably unspendable** by design.
+
+---
+
+# 🧬 SegWit (Segregated Witness)
+
+Introduced in **[BIP141](https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki)** to:
+
+- Solve **transaction malleability**
+- **Increase block capacity**
+
+---
+
+## 🪓 How does SegWit work?
+
+- **Separates witness data** (signatures & scripts) from the main transaction body
+- Signatures are moved to a **new “witness” section**
+- Keeps txids **stable**
+- Reduces overall weight (enabling more txs per block)
+
+---
+
+## 📛 Witness Commitment — Where does it go?
+
+SegWit-enabled blocks **commit to all witness data** using an **OP\_RETURN output** in the **coinbase transaction**.
+
+### Format
+
+```text
+OP_RETURN 6a24aa21a9ed<witness_merkle_root>
+```
+
+- `aa21a9ed`: Magic prefix signaling a **witness commitment**
+- 32-byte hash: **Merkle root** of all witness data
+
+🔐 Ensures full nodes can **verify** the integrity of the witness data, even though it’s stored separately.
+
+---
+
+## 📦 Block Weight Math (BIP141 rules)
+
+| Data Type        | Weight Units per Byte |
+| ---------------- | --------------------- |
+| Non-witness data | 4                     |
+| Witness data     | 1                     |
+
+🔧 This **scales block size** up to \~4MB *effective* weight, without raising the original 1MB block size limit.
+
+---
+
+Let me know if you'd like this converted into HTML or Notion format as well.
 
 ### 🧠 TL;DR — Anatomy of a Bitcoin Block
 
