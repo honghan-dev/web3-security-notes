@@ -16,4 +16,5 @@ Solidity fundamental guide
 
 ### Infrastructure
 
+[Patrica Trie](https://medium.com/blockchain-stories/patricia-trie-a-predestined-blockchain-thing-fddeb1a12b0)
 [Merkle Patricia Trie](https://medium.com/ethereum-stories/merkle-patricia-trie-in-ethereum-a-silhouette-c8d04155b490)
