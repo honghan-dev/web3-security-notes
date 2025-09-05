@@ -1,77 +1,93 @@
-# 🌐 What is libp2p?
+# 🌐 libp2p Overview
 
-libp2p is a modular peer-to-peer (P2P) networking stack originally developed by Protocol Labs (creators of IPFS and Filecoin). It provides the infrastructure to build decentralized and distributed applications by enabling secure, scalable, and resilient communication between peers.
+**libp2p** is a modular peer-to-peer (P2P) networking framework originally developed by Protocol Labs (IPFS, Filecoin). It powers decentralized apps by enabling secure, scalable, and resilient communication between peers — without central servers.
 
-Think of it as a toolkit for building your own custom P2P network – instead of relying on centralized servers, each node talks directly to others.
+The Rust implementation is async-native and widely used in projects like **Polkadot, Substrate, IPFS, and Ethereum clients**.
 
-The Rust implementation of libp2p is highly performant, async-ready, and widely used in projects like Polkadot, Substrate, and IPFS.
+---
 
-🧱 Core Components of libp2p (Rust crate)
-Here are the key components/modules you’ll encounter in the Rust crate:
+## 🧱 Core Components of libp2p
 
-## Component Description
+| Component               | Description                                                                  |
+| ----------------------- | ---------------------------------------------------------------------------- |
+| **Transport**           | Defines how peers connect (TCP, WebSockets, QUIC, UDP).                      |
+| **Swarm**               | The network engine: manages connections, multiplexing, and protocol events.  |
+| **Behaviour**           | Logic of your node (e.g., gossip blocks, answer sync requests).              |
+| **Identity / PeerId**   | Cryptographic identity of each node, used for authentication and addressing. |
+| **Multiaddr**           | Flexible format for network addresses (`/ip4/…/tcp/…/quic`).                 |
+| **Protocols**           | Ready-to-use networking patterns (Gossipsub, Kademlia, Request/Response).    |
+| **Connection Handling** | Encryption (Noise/TLS), stream multiplexing (Yamux/Mplex), NAT traversal.    |
 
-| Component               | Description                                                                                               |
-| ----------------------- | --------------------------------------------------------------------------------------------------------- |
-| **Transport**           | Handles how data is physically transmitted (TCP, WebSockets, QUIC, etc.)                                  |
-| **Swarm**               | Local network engine that connects your node to others. It manages all peer-to-peer connections, handles I/O, and routes protocol messages.       |
-| **Behaviour**           | Describes the logic of your node (e.g. how to respond to messages, send requests, etc.). You define this. |
-| **Identity**            | Handles cryptographic identities (usually using ed25519 keys) for secure peer IDs.                        |
-| **PeerId**              | A unique identifier for each node, derived from its public key.                                           |
-| **Multiaddr**           | A flexible format for describing network addresses (IP, port, protocol).                                  |
-| **Protocols**           | Define how nodes talk to each other (e.g. ping, Kademlia DHT, Gossipsub pubsub).                          |
-| **Connection Handling** | Supports NAT traversal, encryption (via Noise or TLS), and stream multiplexing (via Yamux or Mplex).      |
+---
 
-## 🔧 How is libp2p used?
+## 🔧 How to Use libp2p
 
-General Workflow
-Create a keypair and PeerId
+1. **Generate identity** → Create a keypair & `PeerId`.
+2. **Define behaviour** → Combine protocols (e.g., Gossip + mDNS).
+3. **Build swarm** → Setup transport (TCP + Noise + Yamux) + behaviour.
+4. **Run event loop** → Poll the swarm, process messages, and react.
 
-Define network behaviour (custom logic or use built-in protocols like Gossipsub or Kademlia)
+---
 
-Build a Swarm using:
+## 🪙 libp2p for Blockchains
 
-- Transport (e.g. TCP + Noise + Yamux)
-- Behaviour
-- PeerId
+Blockchains need networking for more than just peer discovery. Typical requirements:
 
-Run the event loop, polling for events and handling network interactions.
+1. **Peer Discovery** → Find other nodes (Kademlia DHT, mDNS, bootstrap nodes).
+2. **Transaction Gossip** → Broadcast signed transactions.
+3. **Block Propagation** → Share proposed blocks across validators.
+4. **Consensus Coordination** → Exchange votes/attestations.
+5. **State Sync** → Fetch old blocks or state data when catching up.
 
-## 🪙 Using libp2p to Create a Blockchain
+### Common libp2p Modules Used
 
-To create a blockchain, you need to enable:
+| Protocol            | Module                     | Role in Blockchain                                            |
+| ------------------- | -------------------------- | ------------------------------------------------------------- |
+| **Gossipsub**       | `libp2p::gossipsub`        | Gossip new transactions, blocks, and consensus votes.         |
+| **mDNS**            | `libp2p::mdns`             | Local peer discovery (useful for dev/testnets).               |
+| **Identify**        | `libp2p::identify`         | Exchange node metadata (client version, supported protocols). |
+| **RequestResponse** | `libp2p::request_response` | RPC for block/state sync (e.g., "Give me block #123").        |
+| **Kademlia DHT**    | `libp2p::kad`              | Global peer discovery & routing.                              |
+| **Noise**           | `libp2p::noise`            | Secure transport: encrypts and authenticates connections.     |
+| **Yamux**           | `libp2p::yamux`            | Multiplex many protocols over one TCP stream.                 |
 
-1. Peer discovery – find other nodes (via Kademlia DHT or bootstrap list)
+---
 
-2. Block propagation – share new blocks (via Gossipsub or floodsub)
+## 🔎 Ethereum Example (libp2p in Action)
 
-3. Consensus coordination – submit votes or proposals
+Ethereum (post-merge) uses libp2p heavily in its **consensus (Beacon Chain)** networking stack:
 
-4. Transaction gossiping – broadcast and receive txs
+### 1. **Transaction Broadcast**
 
-5. State sync – ask peers for block data or chain state
+* Wallet submits tx → validator node gossips it.
+* **Protocols:** Noise + Yamux + Identify + Gossipsub (`transactions` topic).
 
-### High-Level Architecture
+### 2. **Block Proposal**
 
-```rust
-libp2p (P2P layer)
-│
-├── Gossipsub (broadcast blocks & txs)
-├── Kademlia DHT (peer discovery)
-├── Ping/Identify (network liveness)
-├── Custom Protocol (e.g. block request/response)
-│
-└── Blockchain Logic (consensus, execution, storage)
-```
+* Validator proposes a block.
+* **Protocols:** Gossipsub (`blocks` topic).
 
-#### Address Format Explanation
+### 3. **Attestations / Votes**
 
-```rust
-/ip4/10.10.0.21/udp/49590/quic-v1
-│    │          │   │     │
-│    │          │   │     └─ Protocol: QUIC version 1
-│    │          │   └─ Port: 49590  
-│    │          └─ Transport: UDP
-│    └─ IP Address: 10.10.0.21 (Docker container IP)
-└─ Protocol: IPv4
-```
+* Validators check block validity and gossip attestations.
+* **Protocols:** Gossipsub (`attestations` topic).
+
+### 4. **State / Block Sync**
+
+* New or out-of-sync nodes fetch old blocks.
+* **Protocols:** RequestResponse (`/eth2/beacon_block/req`), Kademlia for peer discovery.
+
+### 5. **Peer Discovery & Handshake**
+
+* New nodes find peers via DHT (mainnet) or mDNS (local testnets).
+* **Protocols:** Kademlia / mDNS + Identify.
+
+---
+
+## ✨ TL;DR
+
+* **libp2p** is the networking backbone of many blockchains.
+* **Always-on stack:** Noise (encryption) + Yamux (multiplexing) + Identify.
+* **Live data:** Gossipsub for txs, blocks, attestations.
+* **Sync:** RequestResponse for history/state.
+* **Discovery:** mDNS (local) or Kademlia (global).
