@@ -37,6 +37,8 @@ impl<T, E> Result<T, E> {
 
 ## 3 `unwrap`
 
+The method `unwrap` exists on `Result<T, E>`.
+
 ```rust
 impl<T, E: std::fmt::Debug> Result<T, E> {
     pub fn unwrap(self) -> T
