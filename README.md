@@ -4,3 +4,6 @@
 
 Ethereum
 [Cypherpunks Ethereum Book](https://cypherpunks-core.github.io/ethereumbook/)
+
+Solana
+[Solana Auditing and Security Resources](https://github.com/sannykim/solsec)
