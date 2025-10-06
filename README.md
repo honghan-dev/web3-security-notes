@@ -6,7 +6,7 @@
 
 - [Cypherpunks Ethereum Book](https://cypherpunks-core.github.io/ethereumbook/)
 - [EVM explained](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy)
-- [Zokyo Audit Tutorial](https://zokyo-auditing-tutorials.gitbook.io/zokyo-tutorials/) - a list of all common vulnerability
+- [Zokyo Audit Tutorial](https://zokyo-auditing-tutorials.gitbook.io/zokyo-tutorials/) - a list of all common vulnerabilities
 
 ### Solana
 
