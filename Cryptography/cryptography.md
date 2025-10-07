@@ -12,6 +12,20 @@ BLS is typically used with the BLS12-381 elliptic curve, which offers strong 128
 
 BLS12-381 + BLS — Ethereum 2.0 (validators), Chia, Filecoin
 
+### Data structure
+
+```rust
+BLS Private Key: 32 bytes (256 bits)
+BLS Public Key:  96 bytes (768 bits) - this is what goes in the contract
+
+Example:
+private_key = 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+public_key  = 0x123abc...def (96 bytes total)
+
+# Generate BLS keypair example
+validator-keygen --num-validators 1 --chain mainnet
+```
+
 ## 2. User Transaction Signatures
 
 Most user-level (EOA) transactions prioritize speed, simplicity, and wide compatibility.
