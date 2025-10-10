@@ -12,3 +12,4 @@
 
 - [Solana Auditing and Security Resources](https://github.com/sannykim/solsec)
 - [How to audit Anchor framework](https://www.sec3.dev/blog/how-to-audit-solana-smart-contracts-part-4-the-anchor-framework)
+- [Cantina's Solana Smart contract security Guide](https://cantina.xyz/blog/securing-solana-a-developers-guide)
