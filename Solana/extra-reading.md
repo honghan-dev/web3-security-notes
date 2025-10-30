@@ -4,19 +4,19 @@ Here’s a structured list of all the *“Further reading”* and reference link
 
 ---
 
-### 🕒 1. Solana’s Concept of Time
+### 🕒 Solana’s Concept of Time
 
 * [Solana’s Proof of History: A Detailed Explanation — Emil Kubanychbek (LinkedIn)](https://www.linkedin.com/pulse/solanas-proof-of-historys-detailed-explanation-emil-kubanychbek-q49ne)
 
 ---
 
-### 📅 3. Slot Leader Schedule
+### 📅 Slot Leader Schedule
 
 * [Solana Leader Rotation and Schedule Generation — Anza Docs](https://docs.anza.xyz/consensus/leader-rotation/#leader-schedule-generation-algorithm)
 
 ---
 
-### 🔁 4. Transaction Lifecycle & Gulf Stream
+### 🔁 Transaction Lifecycle & Gulf Stream
 
 1. [How to Land Transactions on Solana — Helius Blog](https://www.helius.dev/blog/how-to-land-transactions-on-solana#what-is-a-blockhash)
 2. [Solana Confirmation Guide — solana.com](https://solana.com/developers/guides/advanced/confirmation)
@@ -37,7 +37,7 @@ Here’s a structured list of all the *“Further reading”* and reference link
 
 ---
 
-### ⚙️ 5–7. TPU (Transaction Processing Unit)
+### ⚙️ TPU (Transaction Processing Unit)
 
 * [How Are Transactions Processed on Solana — Helius Blog](https://www.helius.dev/blog/how-to-land-transactions-on-solana#how-are-transactions-processed)
 * [SigVerify in Solana — Helius Blog](https://www.helius.dev/blog/how-to-land-transactions-on-solana#sigverify-stage)
@@ -47,14 +47,14 @@ Here’s a structured list of all the *“Further reading”* and reference link
 
 ---
 
-### 🔗 10. Proof of History Integration
+### 🔗 Proof of History Integration
 
 * [Solana’s Proof of History — Detailed Explanation (LinkedIn)](https://www.linkedin.com/pulse/solanas-proof-of-historys-detailed-explanation-emil-kubanychbek-q49ne)
 * [Stake-Weighted Quality of Service and PoH (Helius)](https://www.helius.dev/blog/stake-weighted-quality-of-service-everything-you-need-to-know#proof-of-history-poh-service)
 
 ---
 
-### 📦 12. Turbine Block Propagation
+### 📦 Turbine Block Propagation
 
 1. [Turbine: Solana’s Block Propagation Protocol — Solana Labs (Medium)](https://medium.com/solana-labs/turbine-solanas-block-propagation-protocol-solves-the-scalability-trilemma-2ddba46a51db)
 2. [Turbine: Block Propagation on Solana — Helius Blog](https://www.helius.dev/blog/turbine-block-propagation-on-solana)
@@ -66,7 +66,7 @@ Here’s a structured list of all the *“Further reading”* and reference link
 
 ---
 
-### 🧱 13–17. Validation, Voting, and Consensus
+### 🧱 Validation, Voting, and Consensus
 
 * [Helius Blog — Solana Executive Overview](https://www.helius.dev/blog/solana-executive-overview#consensus)
 * [Anza Docs — TVU](https://docs.anza.xyz/validator/tvu)
@@ -75,6 +75,3 @@ Here’s a structured list of all the *“Further reading”* and reference link
 * [Managing Forks — Anza Docs](https://docs.anza.xyz/consensus/managing-forks)
 
 ---
-
-Would you like me to export this list into a **Markdown file (.md)** or **Notion-style structured note** (e.g. with sections and annotations for reading order)?
-That way you can track and mark them as you go.
