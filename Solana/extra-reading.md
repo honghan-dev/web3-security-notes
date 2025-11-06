@@ -75,3 +75,7 @@ Here’s a structured list of all the *“Further reading”* and reference link
 * [Managing Forks — Anza Docs](https://docs.anza.xyz/consensus/managing-forks)
 
 ---
+
+### 🐛 Common Vulnerabilities in Solana CPIs
+
+* [Invocation Security: Navigating Vulnerabilities in Solana CPIs](https://www.asymmetric.re/blog-archived/invocation-security-navigating-vulnerabilities-in-solana-cpis#:~:text=If%20a%20CPI%20is%20made,TokenAccount)
